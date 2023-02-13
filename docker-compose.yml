@@ -1,0 +1,21 @@
+version: '3.0'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=chat
+      - POSTGRES_PASSWORD=room
+      - POSTGRES_DB=chatroom
+    volumes:
+      - ./data
+
+  chatroom-app:
+    build: .
+    ports:
+      - "8080:8080"
+    links:
+      - db
