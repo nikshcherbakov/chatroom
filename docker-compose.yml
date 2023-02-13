@@ -11,7 +11,7 @@ services:
       - POSTGRES_PASSWORD=room
       - POSTGRES_DB=chatroom
     volumes:
-      - ./data
+      - ./data:/var/lib/postgresql/data
 
   chatroom-app:
     build: .
