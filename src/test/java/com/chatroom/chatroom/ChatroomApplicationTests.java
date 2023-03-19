@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ChatroomApplicationTests {
 
     @Test
-    void contextLoads() {
+    public void applicationStarts() {
+        ChatroomApplication.main(new String[] {});
     }
 
 }
