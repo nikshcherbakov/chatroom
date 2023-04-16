@@ -2,6 +2,7 @@ package com.chatroom.chatroom.domain;
 
 import java.time.Instant;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
@@ -21,8 +22,10 @@ public class ChatMessage {
     @EmbeddedId
     ChatMessageId id;
 
+    @Column(nullable = false)
     Instant time;
 
+    @Column(nullable = false)
     String content;
 
 }

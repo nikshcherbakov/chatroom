@@ -3,6 +3,7 @@ package com.chatroom.chatroom.domain;
 import java.time.LocalTime;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,14 +30,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(nullable = true)
     String firstName;
 
+    @Column(nullable = true)
     String secondName;
 
+    @Column(nullable = true)
     String lastName;
 
+    @Column(nullable = true)
     LocalTime birthDate;
 
+    @Column(unique = true, nullable = true)
     String email;
 
     @OneToMany(mappedBy = "id.user")

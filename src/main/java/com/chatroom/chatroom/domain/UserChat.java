@@ -2,6 +2,7 @@ package com.chatroom.chatroom.domain;
 
 import java.time.Instant;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
@@ -21,6 +22,7 @@ public class UserChat {
     @EmbeddedId
     UserChatId id;
 
+    @Column(nullable = false)
     Instant joinTime;
 
     boolean blocked;

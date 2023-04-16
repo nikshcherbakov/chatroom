@@ -3,6 +3,7 @@ package com.chatroom.chatroom.domain;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,8 +27,10 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(nullable = false)
     String name;
 
+    @Column(nullable = false)
     ChatType type;
 
     @OneToMany(mappedBy = "id.chat")
