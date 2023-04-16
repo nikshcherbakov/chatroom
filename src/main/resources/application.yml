@@ -2,8 +2,14 @@ server:
   port: 8080
 spring:
   datasource:
-    url: 'jdbc:postgresql://db:5432/chatroom'
+    url: jdbc:h2:mem:chatroom
     username: 'chat'
     password: 'room'
+    driverClassName: org.h2.Driver
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
