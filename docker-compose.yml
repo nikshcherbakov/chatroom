@@ -2,6 +2,7 @@ version: '3.0'
 
 services:
   db:
+    container_name: chatroom_db
     image: postgres
     restart: always
     ports:
@@ -14,6 +15,7 @@ services:
       - ../chatroom-data:/var/lib/postgresql/data
 
   chatroom-app:
+    container_name: chatroom-app
     build: .
     ports:
       - "8080:8080"
