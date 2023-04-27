@@ -1,10 +1,10 @@
 package com.chatroom.chatroom.rest.dto;
 
-import java.time.LocalDate;
-
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDate;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)

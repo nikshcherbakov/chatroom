@@ -1,11 +1,10 @@
 package com.chatroom.chatroom.rest.exception.handler;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.junit.jupiter.api.Test;
-
 import com.chatroom.chatroom.exception.user.UserBusinessException;
 import com.chatroom.chatroom.rest.exception.ErrorDto;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserExceptionHandlerTest {
 

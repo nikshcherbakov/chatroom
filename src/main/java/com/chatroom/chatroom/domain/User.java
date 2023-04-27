@@ -1,45 +1,36 @@
 package com.chatroom.chatroom.domain;
 
-import java.time.LocalDate;
-import java.util.Set;
+import com.chatroom.chatroom.validation.user.UserCreation;
+import com.chatroom.chatroom.validation.user.UserUpdate;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Past;
-
-import com.chatroom.chatroom.validation.user.UserCreation;
-import com.chatroom.chatroom.validation.user.UserUpdate;
-
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.FieldDefaults;
+import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 @Table(name = "users")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
     @Id
     @Null(
-        groups = UserCreation.class, 
-        message = "При создании пользователя запрещено указывать id самостоятельно!"
+            groups = UserCreation.class,
+            message = "При создании пользователя запрещено указывать id самостоятельно!"
     )
     @NotNull(
-        groups = UserUpdate.class, 
-        message = "При обновлении пользователя id является обязательным!"
+            groups = UserUpdate.class,
+            message = "При обновлении пользователя id является обязательным!"
     )
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -48,18 +39,15 @@ public class User {
     @Column(nullable = false)
     String firstName;
 
-    @Column(nullable = true)
     String secondName;
 
-    @Column(nullable = true)
     String lastName;
 
     @Past
-    @Column(nullable = true)
     LocalDate birthDate;
 
     @Email(message = "Некорректный формат email!")
-    @Column(unique = true, nullable = true)
+    @Column(unique = true)
     String email;
 
     @OneToMany(mappedBy = "id.user")

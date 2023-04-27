@@ -8,7 +8,7 @@ class ChatroomApplicationTests {
 
     @Test
     public void applicationStarts() {
-        ChatroomApplication.main(new String[] {});
+        ChatroomApplication.main(new String[]{});
     }
 
 }

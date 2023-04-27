@@ -1,7 +1,6 @@
 package com.chatroom.chatroom.rest.exception;
 
 import com.chatroom.chatroom.exception.RuntimeBusinessException;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;

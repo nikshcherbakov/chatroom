@@ -1,18 +1,17 @@
 package com.chatroom.chatroom.rest.mapper;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.time.LocalDate;
-
-import org.junit.jupiter.api.Test;
-import org.mapstruct.factory.Mappers;
-
 import com.chatroom.chatroom.TestingUtils;
 import com.chatroom.chatroom.domain.User;
 import com.chatroom.chatroom.rest.dto.CreateUserDto;
+import com.chatroom.chatroom.rest.dto.UpdateUserDto;
 import com.chatroom.chatroom.rest.dto.UserDto;
+import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserMapperTest {
 
@@ -163,5 +162,93 @@ public class UserMapperTest {
 
         assertEquals(expected, result.getEmail());
     }
+
+    @Test
+    public void givenNull_whenMappingFromUpdateUserDto_thenReturnNull() {
+        UpdateUserDto updateUserDto = null;
+
+        User result = mapper.fromUpdateUserDto(updateUserDto);
+
+        assertNull(result);
+    }
+
+    @Test
+    public void givenUserDto_whenMappingFromUpdateUserDto_thenIdIsNotNull() {
+        UpdateUserDto updateUserDto = TestingUtils.createUserUpdateDto(1L);
+
+        User result = mapper.fromUpdateUserDto(updateUserDto);
+
+        assertEquals(1L, result.getId());
+    }
+
+    @Test
+    public void givenUserDto_whenMappingFromUpdateUserDto_thenFirstNameIsMappedCorrectly() {
+        UpdateUserDto updateUserDto = TestingUtils.createUserUpdateDto(1L);
+        String expected = updateUserDto.getFirstName();
+
+        User result = mapper.fromUpdateUserDto(updateUserDto);
+
+        assertEquals(expected, result.getFirstName());
+    }
+
+    @Test
+    public void givenUserDto_whenMappingFromUpdateUserDto_thenSecondNameIsMappedCorrectly() {
+        UpdateUserDto updateUserDto = TestingUtils.createUserUpdateDto(1L);
+        String expected = updateUserDto.getSecondName();
+
+        User result = mapper.fromUpdateUserDto(updateUserDto);
+
+        assertEquals(expected, result.getSecondName());
+    }
+
+    @Test
+    public void givenUserDto_whenMappingFromUpdateUserDto_thenLastNameIsMappedCorrectly() {
+        UpdateUserDto updateUserDto = TestingUtils.createUserUpdateDto(1L);
+        String expected = updateUserDto.getLastName();
+
+        User result = mapper.fromUpdateUserDto(updateUserDto);
+
+        assertEquals(expected, result.getLastName());
+    }
+
+    @Test
+    public void givenUserDto_whenMappingFromUpdateUserDto_thenBirthDateIsMappedCorrectly() {
+        UpdateUserDto updateUserDto = TestingUtils.createUserUpdateDto(1L);
+        LocalDate expected = updateUserDto.getBirthDate();
+
+        User result = mapper.fromUpdateUserDto(updateUserDto);
+
+        assertEquals(expected, result.getBirthDate());
+    }
+
+    @Test
+    public void givenUserDto_whenMappingFromUpdateUserDto_thenEmailIsMappedCorrectly() {
+        UpdateUserDto updateUserDto = TestingUtils.createUserUpdateDto(1L);
+        String expected = updateUserDto.getEmail();
+
+        User result = mapper.fromUpdateUserDto(updateUserDto);
+
+        assertEquals(expected, result.getEmail());
+    }
+
+    @Test
+    public void givenNullList_whenMappingFromUpdateUserDtoList_thenReturnNull() {
+        List<User> list = null;
+
+        List<UserDto> result = mapper.toUserDtoList(list);
+
+        assertNull(result);
+    }
+
+    @Test
+    public void givenUpdateUserDtoList_whenMappingFromUpdateUserDtoList_thenReturnList() {
+        User user = TestingUtils.createTestUser(1L);
+        List<User> list = List.of(user);
+
+        List<UserDto> result = mapper.toUserDtoList(list);
+
+        assertEquals(1, result.size());
+    }
+
 
 }
