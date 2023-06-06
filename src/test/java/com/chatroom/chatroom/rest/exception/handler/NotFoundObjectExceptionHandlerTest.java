@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NotFoundObjectExceptionHandlerTest {
 
-    NotFoundObjectExceptionHandler handler = new NotFoundObjectExceptionHandler();
+    CommonExceptionHandler handler = new CommonExceptionHandler();
 
     @Test
     void givenNotFoundObjectException_whenHandlingException_thenReturnCorrectErrorTitle() {

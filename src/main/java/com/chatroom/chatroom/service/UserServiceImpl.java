@@ -1,7 +1,6 @@
 package com.chatroom.chatroom.service;
 
 import com.chatroom.chatroom.domain.User;
-import com.chatroom.chatroom.exception.AccessDeniedException;
 import com.chatroom.chatroom.exception.NotFoundObjectException;
 import com.chatroom.chatroom.exception.user.UserBusinessException;
 import com.chatroom.chatroom.repository.UserRepository;
@@ -10,6 +9,7 @@ import com.chatroom.chatroom.validation.user.UserUpdate;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -31,11 +31,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(@Validated(UserUpdate.class) User user, Long userId) {
-        User userToUpdate = findByIdOrThrowException(user.getId());
-        checkUserAccess(userId, user.getId());
-        User updatedUser = changeUserFields(userToUpdate, user);
-        return repository.save(updatedUser);
+    public User update(@Validated(UserUpdate.class) User user) {
+        findByIdOrThrowException(user.getId());
+        ensureEmailNotOccupied(user.getEmail());
+        return repository.save(user);
     }
 
     @Override
@@ -49,9 +48,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteById(Long userToCheckId, Long userId) {
+    public void deleteById(Long userId) {
         findByIdOrThrowException(userId);
-        checkUserAccess(userToCheckId, userId);
         repository.deleteById(userId);
     }
 
@@ -66,30 +64,24 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NotFoundObjectException("Объект не был найден"));
     }
 
-    private void checkUserAccess(Long userIdToCheck, Long userIdToChange) {
-        if (!userIdToCheck.equals(userIdToChange)) {
-            throw new AccessDeniedException("У этого пользователя нет права на эту операцию!");
-        }
-    }
+    private User updateUserFields(User existingUser, User updatedUser) {
+        if (StringUtils.isNotBlank(updatedUser.getEmail())) {
 
-    private User changeUserFields(User oldUser, User newUser) {
-        if (newUser.getEmail() != null && !newUser.getEmail().isBlank()) {
-
-            ensureEmailNotOccupied(newUser.getEmail());
-            oldUser.setEmail(newUser.getEmail());
+            ensureEmailNotOccupied(updatedUser.getEmail());
+            existingUser.setEmail(updatedUser.getEmail());
         }
-        if (newUser.getFirstName() != null && !newUser.getFirstName().isBlank()) {
-            oldUser.setFirstName(newUser.getFirstName());
+        if (StringUtils.isNotBlank(updatedUser.getFirstName())) {
+            existingUser.setFirstName(updatedUser.getFirstName());
         }
-        if (newUser.getSecondName() != null && !newUser.getSecondName().isBlank()) {
-            oldUser.setSecondName(newUser.getSecondName());
+        if (StringUtils.isNotBlank(updatedUser.getSecondName())) {
+            existingUser.setSecondName(updatedUser.getSecondName());
         }
-        if (newUser.getLastName() != null && !newUser.getLastName().isBlank()) {
-            oldUser.setLastName(newUser.getLastName());
+        if (StringUtils.isNotBlank(updatedUser.getLastName())) {
+            existingUser.setLastName(updatedUser.getLastName());
         }
-        if (newUser.getBirthDate() != null && newUser.getBirthDate().isBefore(LocalDate.now())) {
-            oldUser.setBirthDate(newUser.getBirthDate());
+        if (updatedUser.getBirthDate() != null && updatedUser.getBirthDate().isBefore(LocalDate.now())) {
+            existingUser.setBirthDate(updatedUser.getBirthDate());
         }
-        return oldUser;
+        return existingUser;
     }
 }

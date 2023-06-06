@@ -26,33 +26,31 @@ public class UserController {
 
     @PostMapping
     public UserDto createUser(@Validated @RequestBody CreateUserDto userDto) {
-        User created = userService.create(mapper.fromCreateUserDto(userDto));
-        return mapper.toUserDto(created);
+        User created = userService.create(mapper.fromDto(userDto));
+        return mapper.toDto(created);
     }
 
-    @PatchMapping
-    public UserDto updateUser(@RequestHeader("X-User-Id") Long userId,
-                              @Validated @RequestBody UpdateUserDto userDto) {
-        User updated = userService.update(mapper.fromUpdateUserDto(userDto), userId);
-        return mapper.toUserDto(updated);
+    @PutMapping
+    public UserDto updateUser(@Validated @RequestBody UpdateUserDto userDto) {
+        User updated = userService.update(mapper.fromDto(userDto));
+        return mapper.toDto(updated);
     }
 
     @GetMapping("/{userId}")
     public UserDto findUserById(@PathVariable("userId") Long userId) {
         User user = userService.findById(userId);
-        return mapper.toUserDto(user);
+        return mapper.toDto(user);
     }
 
     @GetMapping
     public List<UserDto> findAllUsers() {
         List<User> users = userService.findAll();
-        return mapper.toUserDtoList(users);
+        return mapper.toDtoList(users);
     }
 
     @DeleteMapping("/{userId}")
-    public void deleteUserById(@RequestHeader("X-User-Id") Long userToCheckId,
-                               @PathVariable("userId") Long userId) {
-        userService.deleteById(userToCheckId, userId);
+    public void deleteUserById(@PathVariable("userId") Long userId) {
+        userService.deleteById(userId);
     }
 
 }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AccessDeniedExceptionHandlerTest {
-    AccessDeniedExceptionHandler handler = new AccessDeniedExceptionHandler();
+    CommonExceptionHandler handler = new CommonExceptionHandler();
 
     @Test
     void givenAccessDeniedException_whenHandlingException_thenReturnCorrectErrorTitle() {

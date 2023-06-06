@@ -17,12 +17,12 @@ public interface UserMapper {
             target = "userChats",
             expression = "java(java.util.Collections.emptySet())"
     )
-    User fromCreateUserDto(CreateUserDto userDto);
+    User fromDto(CreateUserDto userDto);
 
-    User fromUpdateUserDto(UpdateUserDto userDto);
+    User fromDto(UpdateUserDto userDto);
 
-    UserDto toUserDto(User create);
+    UserDto toDto(User create);
 
-    List<UserDto> toUserDtoList(List<User> users);
+    List<UserDto> toDtoList(List<User> users);
 
 }

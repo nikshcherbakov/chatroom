@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class UpdateUserDto {
     @NotNull(message = "Id пользователя является обязательным!")
     Long id;
-
+    @NotNull
     String firstName;
 
     String secondName;

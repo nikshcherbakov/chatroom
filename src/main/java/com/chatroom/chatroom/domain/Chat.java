@@ -11,8 +11,8 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(exclude = {"userChats", "messages"})
+@ToString(exclude = {"userChats", "messages"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Chat {
 

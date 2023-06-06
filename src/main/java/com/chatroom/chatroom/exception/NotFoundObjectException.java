@@ -12,4 +12,9 @@ public class NotFoundObjectException extends RuntimeBusinessException {
         super(message);
         this.title = "По данному id объект не найден!";
     }
+
+    public NotFoundObjectException() {
+        super("Объект не был найден!");
+        this.title = "По данному id объект не найден!";
+    }
 }

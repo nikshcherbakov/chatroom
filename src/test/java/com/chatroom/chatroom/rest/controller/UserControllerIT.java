@@ -93,10 +93,9 @@ public class UserControllerIT {
     public void givenUserWithoutId_whenUpdatingUser_thenReturnStatus400() throws Exception {
         UpdateUserDto requestDto = createUserUpdateDto(null);
 
-        mockMvc.perform(patch("/users")
+        mockMvc.perform(put("/users")
                         .content(objectMapper.writeValueAsString(requestDto))
-                        .contentType("application/json")
-                        .header("X-User-Id", 2))
+                        .contentType("application/json"))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.title").exists())
@@ -118,10 +117,9 @@ public class UserControllerIT {
                 .andDo(print());
 
         UpdateUserDto requestDto = createUserUpdateDto(1L);
-        mockMvc.perform(patch("/users")
+        mockMvc.perform(put("/users")
                         .content(objectMapper.writeValueAsString(requestDto))
-                        .contentType("application/json")
-                        .header("X-User-Id", 1))
+                        .contentType("application/json"))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.title").exists())
@@ -129,31 +127,11 @@ public class UserControllerIT {
     }
 
     @Test
-    public void givenUserIdWithNoAccess_whenUpdatingUser_thenReturnStatus403() throws Exception {
-        CreateUserDto requestCreateDto = createUserCreateDto();
-        mockMvc.perform(post("/users")
-                        .content(objectMapper.writeValueAsString(requestCreateDto))
-                        .contentType("application/json"))
-                .andDo(print());
-
-        UpdateUserDto requestDto = createUserUpdateDto(1L);
-        mockMvc.perform(patch("/users")
-                        .content(objectMapper.writeValueAsString(requestDto))
-                        .contentType("application/json")
-                        .header("X-User-Id", 2))
-                .andDo(print())
-                .andExpect(status().isForbidden())
-                .andExpect(jsonPath("$.title").exists())
-                .andExpect(jsonPath("$.message").exists());
-    }
-
-    @Test
     public void givenNotExistingObject_whenUpdatingUser_thenReturnStatus404() throws Exception {
         UpdateUserDto requestDto = createUserUpdateDto(1L);
-        mockMvc.perform(patch("/users")
+        mockMvc.perform(put("/users")
                         .content(objectMapper.writeValueAsString(requestDto))
-                        .contentType("application/json")
-                        .header("X-User-Id", 1))
+                        .contentType("application/json"))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.title").exists())
@@ -169,10 +147,9 @@ public class UserControllerIT {
                 .andDo(print());
 
         UpdateUserDto requestDto = createUserUpdateDto(1L);
-        mockMvc.perform(patch("/users")
+        mockMvc.perform(put("/users")
                         .content(objectMapper.writeValueAsString(requestDto))
-                        .contentType("application/json")
-                        .header("X-User-Id", 1))
+                        .contentType("application/json"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber());
@@ -224,23 +201,6 @@ public class UserControllerIT {
                         .header("X-User-Id", 1))
                 .andDo(print())
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.title").exists())
-                .andExpect(jsonPath("$.message").exists());
-    }
-
-    @Test
-    public void givenUserIdWithNoAccess_whenDeletingById_thenReturnReturnStatus403() throws Exception {
-        CreateUserDto requestCreateDto = createUserCreateDto();
-        mockMvc.perform(post("/users")
-                        .content(objectMapper.writeValueAsString(requestCreateDto))
-                        .contentType("application/json"))
-                .andDo(print());
-
-        mockMvc.perform(delete("/users/{userId}", 1L)
-                        .contentType("application/json")
-                        .header("X-User-Id", 2))
-                .andDo(print())
-                .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.title").exists())
                 .andExpect(jsonPath("$.message").exists());
     }

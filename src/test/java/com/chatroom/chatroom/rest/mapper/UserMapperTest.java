@@ -21,7 +21,7 @@ public class UserMapperTest {
     public void givenNull_whenMappingFromCreateUserDto_thenReturnNull() {
         CreateUserDto createUserDto = null;
 
-        User result = mapper.fromCreateUserDto(createUserDto);
+        User result = mapper.fromDto(createUserDto);
 
         assertNull(result);
     }
@@ -30,7 +30,7 @@ public class UserMapperTest {
     public void givenUserDto_whenMappingFromCreateUserDto_thenIdIsNull() {
         CreateUserDto createUserDto = TestingUtils.createUserCreateDto();
 
-        User result = mapper.fromCreateUserDto(createUserDto);
+        User result = mapper.fromDto(createUserDto);
 
         assertNull(result.getId());
     }
@@ -40,7 +40,7 @@ public class UserMapperTest {
         CreateUserDto createUserDto = TestingUtils.createUserCreateDto();
         String expected = createUserDto.getFirstName();
 
-        User result = mapper.fromCreateUserDto(createUserDto);
+        User result = mapper.fromDto(createUserDto);
 
         assertEquals(expected, result.getFirstName());
     }
@@ -50,7 +50,7 @@ public class UserMapperTest {
         CreateUserDto createUserDto = TestingUtils.createUserCreateDto();
         String expected = createUserDto.getSecondName();
 
-        User result = mapper.fromCreateUserDto(createUserDto);
+        User result = mapper.fromDto(createUserDto);
 
         assertEquals(expected, result.getSecondName());
     }
@@ -60,7 +60,7 @@ public class UserMapperTest {
         CreateUserDto createUserDto = TestingUtils.createUserCreateDto();
         String expected = createUserDto.getLastName();
 
-        User result = mapper.fromCreateUserDto(createUserDto);
+        User result = mapper.fromDto(createUserDto);
 
         assertEquals(expected, result.getLastName());
     }
@@ -70,7 +70,7 @@ public class UserMapperTest {
         CreateUserDto createUserDto = TestingUtils.createUserCreateDto();
         LocalDate expected = createUserDto.getBirthDate();
 
-        User result = mapper.fromCreateUserDto(createUserDto);
+        User result = mapper.fromDto(createUserDto);
 
         assertEquals(expected, result.getBirthDate());
     }
@@ -80,7 +80,7 @@ public class UserMapperTest {
         CreateUserDto createUserDto = TestingUtils.createUserCreateDto();
         String expected = createUserDto.getEmail();
 
-        User result = mapper.fromCreateUserDto(createUserDto);
+        User result = mapper.fromDto(createUserDto);
 
         assertEquals(expected, result.getEmail());
     }
@@ -89,7 +89,7 @@ public class UserMapperTest {
     public void givenUserDto_whenMappingFromCreateUserDto_thenUserChatsEqualEmptySet() {
         CreateUserDto createUserDto = TestingUtils.createUserCreateDto();
 
-        User result = mapper.fromCreateUserDto(createUserDto);
+        User result = mapper.fromDto(createUserDto);
 
         assertTrue(result.getUserChats().isEmpty());
     }
@@ -98,7 +98,7 @@ public class UserMapperTest {
     public void givenNull_whenMappingToUserDto_thenReturnNull() {
         User user = null;
 
-        UserDto result = mapper.toUserDto(user);
+        UserDto result = mapper.toDto(user);
 
         assertNull(result);
     }
@@ -108,7 +108,7 @@ public class UserMapperTest {
         User user = TestingUtils.createTestUser(1L);
         Long expected = user.getId();
 
-        UserDto result = mapper.toUserDto(user);
+        UserDto result = mapper.toDto(user);
 
         assertEquals(expected, result.getId());
     }
@@ -118,7 +118,7 @@ public class UserMapperTest {
         User user = TestingUtils.createTestUser(1L);
         String expected = user.getFirstName();
 
-        UserDto result = mapper.toUserDto(user);
+        UserDto result = mapper.toDto(user);
 
         assertEquals(expected, result.getFirstName());
     }
@@ -128,7 +128,7 @@ public class UserMapperTest {
         User user = TestingUtils.createTestUser(1L);
         String expected = user.getSecondName();
 
-        UserDto result = mapper.toUserDto(user);
+        UserDto result = mapper.toDto(user);
 
         assertEquals(expected, result.getSecondName());
     }
@@ -138,7 +138,7 @@ public class UserMapperTest {
         User user = TestingUtils.createTestUser(1L);
         String expected = user.getLastName();
 
-        UserDto result = mapper.toUserDto(user);
+        UserDto result = mapper.toDto(user);
 
         assertEquals(expected, result.getLastName());
     }
@@ -148,7 +148,7 @@ public class UserMapperTest {
         User user = TestingUtils.createTestUser(1L);
         LocalDate expected = user.getBirthDate();
 
-        UserDto result = mapper.toUserDto(user);
+        UserDto result = mapper.toDto(user);
 
         assertEquals(expected, result.getBirthDate());
     }
@@ -158,7 +158,7 @@ public class UserMapperTest {
         User user = TestingUtils.createTestUser(1L);
         String expected = user.getEmail();
 
-        UserDto result = mapper.toUserDto(user);
+        UserDto result = mapper.toDto(user);
 
         assertEquals(expected, result.getEmail());
     }
@@ -167,7 +167,7 @@ public class UserMapperTest {
     public void givenNull_whenMappingFromUpdateUserDto_thenReturnNull() {
         UpdateUserDto updateUserDto = null;
 
-        User result = mapper.fromUpdateUserDto(updateUserDto);
+        User result = mapper.fromDto(updateUserDto);
 
         assertNull(result);
     }
@@ -176,7 +176,7 @@ public class UserMapperTest {
     public void givenUserDto_whenMappingFromUpdateUserDto_thenIdIsNotNull() {
         UpdateUserDto updateUserDto = TestingUtils.createUserUpdateDto(1L);
 
-        User result = mapper.fromUpdateUserDto(updateUserDto);
+        User result = mapper.fromDto(updateUserDto);
 
         assertEquals(1L, result.getId());
     }
@@ -186,7 +186,7 @@ public class UserMapperTest {
         UpdateUserDto updateUserDto = TestingUtils.createUserUpdateDto(1L);
         String expected = updateUserDto.getFirstName();
 
-        User result = mapper.fromUpdateUserDto(updateUserDto);
+        User result = mapper.fromDto(updateUserDto);
 
         assertEquals(expected, result.getFirstName());
     }
@@ -196,7 +196,7 @@ public class UserMapperTest {
         UpdateUserDto updateUserDto = TestingUtils.createUserUpdateDto(1L);
         String expected = updateUserDto.getSecondName();
 
-        User result = mapper.fromUpdateUserDto(updateUserDto);
+        User result = mapper.fromDto(updateUserDto);
 
         assertEquals(expected, result.getSecondName());
     }
@@ -206,7 +206,7 @@ public class UserMapperTest {
         UpdateUserDto updateUserDto = TestingUtils.createUserUpdateDto(1L);
         String expected = updateUserDto.getLastName();
 
-        User result = mapper.fromUpdateUserDto(updateUserDto);
+        User result = mapper.fromDto(updateUserDto);
 
         assertEquals(expected, result.getLastName());
     }
@@ -216,7 +216,7 @@ public class UserMapperTest {
         UpdateUserDto updateUserDto = TestingUtils.createUserUpdateDto(1L);
         LocalDate expected = updateUserDto.getBirthDate();
 
-        User result = mapper.fromUpdateUserDto(updateUserDto);
+        User result = mapper.fromDto(updateUserDto);
 
         assertEquals(expected, result.getBirthDate());
     }
@@ -226,7 +226,7 @@ public class UserMapperTest {
         UpdateUserDto updateUserDto = TestingUtils.createUserUpdateDto(1L);
         String expected = updateUserDto.getEmail();
 
-        User result = mapper.fromUpdateUserDto(updateUserDto);
+        User result = mapper.fromDto(updateUserDto);
 
         assertEquals(expected, result.getEmail());
     }
@@ -235,7 +235,7 @@ public class UserMapperTest {
     public void givenNullList_whenMappingFromUpdateUserDtoList_thenReturnNull() {
         List<User> list = null;
 
-        List<UserDto> result = mapper.toUserDtoList(list);
+        List<UserDto> result = mapper.toDtoList(list);
 
         assertNull(result);
     }
@@ -245,7 +245,7 @@ public class UserMapperTest {
         User user = TestingUtils.createTestUser(1L);
         List<User> list = List.of(user);
 
-        List<UserDto> result = mapper.toUserDtoList(list);
+        List<UserDto> result = mapper.toDtoList(list);
 
         assertEquals(1, result.size());
     }

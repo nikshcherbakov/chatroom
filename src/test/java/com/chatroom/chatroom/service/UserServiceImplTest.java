@@ -2,7 +2,6 @@ package com.chatroom.chatroom.service;
 
 import com.chatroom.chatroom.TestingUtils;
 import com.chatroom.chatroom.domain.User;
-import com.chatroom.chatroom.exception.AccessDeniedException;
 import com.chatroom.chatroom.exception.NotFoundObjectException;
 import com.chatroom.chatroom.exception.user.UserBusinessException;
 import com.chatroom.chatroom.repository.UserRepository;
@@ -68,16 +67,7 @@ public class UserServiceImplTest {
         User user = TestingUtils.createTestUser(userId);
         when(userRepository.findById(userId)).thenThrow(NotFoundObjectException.class);
 
-        assertThrows(NotFoundObjectException.class, () -> service.update(user, userId));
-    }
-
-    @Test
-    public void givenUserIdWithNoAccess_whenUpdatingUser_thenThrowAccessDeniedException() {
-        Long userId = 1L;
-        User user = TestingUtils.createTestUser(userId);
-        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-
-        assertThrows(AccessDeniedException.class, () -> service.update(user, 2L));
+        assertThrows(NotFoundObjectException.class, () -> service.update(user));
     }
 
     @Test
@@ -87,7 +77,7 @@ public class UserServiceImplTest {
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         when(userRepository.existsByEmail(anyString())).thenReturn(true);
 
-        assertThrows(UserBusinessException.class, () -> service.update(user, 1L));
+        assertThrows(UserBusinessException.class, () -> service.update(user));
     }
 
     @Test
@@ -98,7 +88,7 @@ public class UserServiceImplTest {
         user.setEmail("newEmail@mail.ru");
         when(userRepository.save(any())).thenReturn(user);
 
-        assertEquals("newEmail@mail.ru", service.update(user, userId).getEmail());
+        assertEquals("newEmail@mail.ru", service.update(user).getEmail());
     }
 
     @Test
@@ -109,7 +99,7 @@ public class UserServiceImplTest {
         user.setFirstName("newFirstName");
         when(userRepository.save(any())).thenReturn(user);
 
-        assertEquals("newFirstName", service.update(user, userId).getFirstName());
+        assertEquals("newFirstName", service.update(user).getFirstName());
     }
 
     @Test
@@ -120,7 +110,7 @@ public class UserServiceImplTest {
         user.setSecondName("newSecondName");
         when(userRepository.save(any())).thenReturn(user);
 
-        assertEquals("newSecondName", service.update(user, userId).getSecondName());
+        assertEquals("newSecondName", service.update(user).getSecondName());
     }
 
     @Test
@@ -131,7 +121,7 @@ public class UserServiceImplTest {
         user.setLastName("newLastName");
         when(userRepository.save(any())).thenReturn(user);
 
-        assertEquals("newLastName", service.update(user, userId).getLastName());
+        assertEquals("newLastName", service.update(user).getLastName());
     }
 
     @Test
@@ -143,7 +133,7 @@ public class UserServiceImplTest {
         user.setBirthDate(newBirthDate);
         when(userRepository.save(any())).thenReturn(user);
 
-        assertEquals(newBirthDate, service.update(user, userId).getBirthDate());
+        assertEquals(newBirthDate, service.update(user).getBirthDate());
     }
 
     @Test
@@ -177,16 +167,7 @@ public class UserServiceImplTest {
         long userId = 1L;
         when(userRepository.findById(userId)).thenThrow(NotFoundObjectException.class);
 
-        assertThrows(NotFoundObjectException.class, () -> service.deleteById(1L, userId));
-    }
-
-    @Test
-    public void givenNoAccessUserId_whenDeletingById_throwAccessDeniedException() {
-        long userId = 1L;
-        User user = TestingUtils.createTestUser(userId);
-        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-
-        assertThrows(AccessDeniedException.class, () -> service.deleteById(2L, userId));
+        assertThrows(NotFoundObjectException.class, () -> service.deleteById(userId));
     }
 
     @Test
@@ -195,7 +176,7 @@ public class UserServiceImplTest {
         User user = TestingUtils.createTestUser(userId);
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
-        service.deleteById(1L, userId);
+        service.deleteById(userId);
 
         verify(userRepository, times(1)).deleteById(1L);
     }
