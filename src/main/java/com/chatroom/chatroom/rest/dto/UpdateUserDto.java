@@ -3,6 +3,7 @@ package com.chatroom.chatroom.rest.dto;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -11,9 +12,10 @@ import java.time.LocalDate;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CreateUserDto {
-
-    @NotNull(message = "Имя пользователя является обязательным!")
+public class UpdateUserDto {
+    @NotNull(message = "Id пользователя является обязательным!")
+    Long id;
+    @NotNull
     String firstName;
 
     String secondName;
@@ -21,9 +23,10 @@ public class CreateUserDto {
     String lastName;
 
     @Past(message = "Дата должна быть в прошлом!")
+    @Nullable
     LocalDate birthDate;
 
     @Email(message = "Некорректный формат email!")
+    @Nullable
     String email;
-
 }

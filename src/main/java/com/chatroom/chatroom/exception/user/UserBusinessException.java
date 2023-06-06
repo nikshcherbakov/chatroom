@@ -1,7 +1,6 @@
 package com.chatroom.chatroom.exception.user;
 
 import com.chatroom.chatroom.exception.RuntimeBusinessException;
-
 import lombok.Getter;
 
 @Getter

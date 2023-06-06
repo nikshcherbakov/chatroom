@@ -1,8 +1,7 @@
 package com.chatroom.chatroom.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.chatroom.chatroom.domain.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 

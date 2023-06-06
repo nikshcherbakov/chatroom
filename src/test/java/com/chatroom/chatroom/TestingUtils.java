@@ -1,15 +1,15 @@
 package com.chatroom.chatroom;
 
-import static java.time.temporal.ChronoUnit.YEARS;
+import com.chatroom.chatroom.domain.User;
+import com.chatroom.chatroom.rest.dto.CreateUserDto;
+import com.chatroom.chatroom.rest.dto.UpdateUserDto;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 
-import com.chatroom.chatroom.domain.User;
-import com.chatroom.chatroom.rest.dto.CreateUserDto;
-
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import static java.time.temporal.ChronoUnit.YEARS;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TestingUtils {
@@ -33,6 +33,14 @@ public class TestingUtils {
         dto.setFirstName("Иван");
         dto.setSecondName("Александрович");
         dto.setLastName("Терин");
+        return dto;
+    }
+
+    public static UpdateUserDto createUserUpdateDto(Long id) {
+        UpdateUserDto dto = new UpdateUserDto();
+        dto.setId(id);
+        dto.setEmail("newEmail@mail.com");
+        dto.setFirstName("newName");
         return dto;
     }
 
